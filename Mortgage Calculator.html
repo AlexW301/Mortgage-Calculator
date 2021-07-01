@@ -1,0 +1,143 @@
+<link rel="stylesheet" href="styles.css">
+<style>
+    .inputField {
+    width:100%;
+    resize: vertical;
+    padding:15px;
+    border-radius:15px;
+    border:.5;
+    box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+    height:50px;
+    margin-top: 5px;
+  }
+
+  .selectMenu {
+    width: 100%;
+    padding:10px;
+    border-radius:10px;
+  }
+
+  .button {
+    /* remove default behavior */
+  appearance:none;
+  -webkit-appearance:none;
+
+  /* usual styles */
+  padding:10px;
+  border:none;
+  background-color:#891F12;
+  color:rgb(255, 255, 255);
+  font-weight:600;
+  border-radius:5px;
+  width:100%;
+  margin-top: 10px;
+}
+
+#header {
+  font-weight:600;
+  font-size: 40px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#headerDiv {
+    text-align: center;
+    margin-top: 15px;
+    align-items: center;
+}
+
+#payment {
+  font-weight:600;
+  color: rgb(0, 0, 0);
+}
+
+#paymentDiv {
+  align-items: center;
+  text-align: center;
+}
+
+.results {
+  font-weight:600;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#label {
+  color: #5a5a5a; font-family: 'Muli', sans-serif; font-size: 15px; font-weight: 600; line-height: 20px; text-align: center; padding: 10px;
+}
+
+</style>
+<div>
+    <Text id="label">Home Value</Text>
+    <input id="homeValueInput" class="inputField" placeholder="Home Value...">
+    <Text id="label">Down Payment</Text>
+    <input id="downPaymentInput" class="inputField" placeholder="Down Payment...">
+    <Text id="label">Interest Rate (as a decimal)</Text>
+    <input id="interestRateInput" class="inputField" placeholder="Interest Rate... Ex. 0.0275">
+    <Text id="label">Annual Property Tax (as a dollar amount) </Text>
+    <input id="propertyTaxInput" class="inputField" placeholder="Annual Property Tax...">
+    <Text id="label">Loan Term </Text>
+    <select name="Term" class="selectMenu" id="termDropDown">
+        <option value="30">30 Years</option>
+        <option value="15">15 Years</option>
+    </select>
+    
+    <button id="calculateButton"class="button">Calculate</button>
+    <div id="headerDiv">
+      <Text id="header"> </Text>
+    </div>
+    <div id="paymentDiv" class="resultsDiv">
+        <Text id="payment" class="results"></Text>
+    </div>
+
+
+    <script>
+        const DOM = {
+            calculateButton: document.getElementById('calculateButton'),
+            homeValueInput: document.getElementById('homeValueInput'),
+            downPaymentInput: document.getElementById('downPaymentInput'),
+            interestRateInput: document.getElementById('interestRateInput'),
+            termDropDown: document.getElementById('termDropDown'),
+            propertyTax: document.getElementById('propertyTaxInput')
+        }
+
+        
+
+        const calculate = () => {
+
+          if (DOM.downPaymentInput.value && DOM.homeValueInput.value && DOM.interestRateInput.value) {
+            let PV = DOM.homeValueInput.value.replace(/\,/g,'').replace("$", "") - DOM.downPaymentInput.value.replace(/\,/g,'').replace("$", "")
+            let i = DOM.interestRateInput.value
+            let n = DOM.termDropDown.value
+            let propertyTax = DOM.propertyTax.value.replace(/\,/g,'').replace("$", "")
+
+            i /= 1200
+            n *= 12
+            let monthlyPayment = PV*(i * Math.pow((1 + i), n))/(Math.pow((1 + i), n) - 1)
+            let monthlyPaymentWithTax = monthlyPayment + ((propertyTax) / 12)
+            //Round to 2 decimals
+            monthlyPayment = monthlyPayment.toFixed(2)
+            monthlyPaymentWithTax = monthlyPaymentWithTax.toFixed(2)
+
+            console.log('CALCULATING...');
+            console.log(PV)
+            console.log(i)
+            console.log(n)
+            console.log(monthlyPayment)
+            console.log(monthlyPaymentWithTax)
+
+            // Display Results
+            document.getElementById('header').innerHTML = `<Text id="header">Results</Text>`
+            document.getElementById('payment').innerHTML = `<Text id="payment">Your Estimated Monthly Payment is $${monthlyPaymentWithTax}</Text>`
+          } else {
+            console.log('Please fill out all the fields')
+          }
+
+           
+        }
+    
+        DOM.calculateButton.addEventListener('click', calculate);
+    </script>
+</div>
+

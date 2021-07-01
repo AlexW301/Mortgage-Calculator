@@ -1,0 +1,60 @@
+.inputField {
+    width:100%;
+    resize: vertical;
+    padding:15px;
+    border-radius:15px;
+    border:.5;
+    box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+    height:50px;
+    margin-top: 5px;
+  }
+
+  .selectMenu {
+    width: 100%;
+    padding:10px;
+    border-radius:10px;
+  }
+
+  .button {
+    /* remove default behavior */
+  appearance:none;
+  -webkit-appearance:none;
+
+  /* usual styles */
+  padding:10px;
+  border:none;
+  background-color:#891F12;
+  color:#fff;
+  font-weight:600;
+  border-radius:5px;
+  width:100%;
+  margin-top: 10px;
+}
+
+#header {
+  font-weight:600;
+  font-size: 30;
+  text-align: center;
+}
+
+#headerDiv {
+    text-align: center;
+}
+
+#payment {
+  font-weight:600;
+}
+
+.resultsDiv {
+  text-align: center;
+}
+
+.results {
+  font-weight:600;
+  font-size: 20px;
+}
+
+#label {
+  color: #5a5a5a; font-family: 'Muli', sans-serif; font-size: 15px; font-weight: 600; line-height: 20px; text-align: center; padding: 10px;
+}
+
